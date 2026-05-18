@@ -334,6 +334,61 @@ function Features() {
   );
 }
 
+function Download() {
+  return (
+    <section id="download" className="px-6 py-20">
+      <div className="relative mx-auto max-w-[800px] overflow-hidden rounded-[20px] border border-border bg-surface p-[clamp(32px,5vw,56px)] text-center">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -bottom-[120px] -left-[100px] h-[320px] w-[320px] rounded-full"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(244,162,97,0.10) 0%, transparent 70%)",
+          }}
+        />
+        <FadeIn>
+          <p className="mb-3 text-[13px] font-semibold uppercase tracking-[0.1em] text-accent">
+            Download
+          </p>
+          <h2 className="mb-8 font-serif text-[clamp(28px,5vw,40px)] font-normal leading-tight text-fg">
+            Get Khord
+          </h2>
+        </FadeIn>
+        <FadeIn delay={0.1}>
+          <a
+            href="https://github.com/Khord-Project/khord/releases/latest"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex rounded-[10px] bg-gradient-to-br from-primary to-primary-light px-8 py-3.5 text-base font-semibold text-white shadow-[0_4px_24px_#1A535C40] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_32px_#1A535C60]"
+          >
+            Download APK
+          </a>
+        </FadeIn>
+        <FadeIn delay={0.2}>
+          <p className="mx-auto mt-6 max-w-[480px] text-sm leading-[1.6] text-fg-muted">
+            Android 8.0+ required. Sideload instructions: download the APK,
+            open it, and allow installation from unknown sources when prompted.
+          </p>
+        </FadeIn>
+        <FadeIn delay={0.25}>
+          <p className="mt-4 text-sm text-fg-dim">
+            F-Droid listing coming soon. iOS is on the roadmap.
+          </p>
+        </FadeIn>
+        <FadeIn delay={0.3}>
+          <div className="mx-auto mt-10 max-w-[560px] rounded-xl border border-border-subtle bg-bg-subtle px-[22px] py-[18px] text-left">
+            <p className="text-[13px] leading-[1.6] text-fg-muted">
+              Khord is in early development and has not been professionally
+              security-audited. Use community servers for casual testing,
+              self-host for anything sensitive.
+            </p>
+          </div>
+        </FadeIn>
+      </div>
+    </section>
+  );
+}
+
 function SelfHost() {
   const tiers = [
     {
@@ -586,6 +641,7 @@ export default function KhordLanding() {
       <Hero />
       <Architecture />
       <Features />
+      <Download />
       <SelfHost />
       <ServerStatus />
       <OpenSource />
