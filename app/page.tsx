@@ -500,7 +500,7 @@ function OpenSource() {
   const links = [
     {
       label: "Protocol Spec",
-      href: "https://github.com/Khord-Project/khord/blob/main/PROTOCOL.md",
+      href: "https://github.com/Khord-Project/khord/blob/main/docs/PROTOCOL.md",
     },
     {
       label: "Architecture Decisions",
@@ -554,7 +554,7 @@ function Footer() {
     ["GitHub", "https://github.com/Khord-Project/khord"],
     [
       "Protocol",
-      "https://github.com/Khord-Project/khord/blob/main/PROTOCOL.md",
+      "https://github.com/Khord-Project/khord/blob/main/docs/PROTOCOL.md",
     ],
   ];
   return (
