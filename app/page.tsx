@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, type CSSProperties } from "react";
+import Image from "next/image";
 
 type Status = "online" | "offline" | "error" | "checking";
 
@@ -74,9 +75,14 @@ function Nav() {
       }`}
     >
       <div className="flex items-center gap-2.5">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary-light font-serif text-lg font-bold leading-none text-white">
-          K
-        </div>
+        <Image
+          src="/logo.png"
+          alt="Khord logo"
+          width={32}
+          height={32}
+          priority
+          className="h-8 w-8"
+        />
         <span className="font-serif text-xl tracking-wide text-fg">Khord</span>
       </div>
       <div className="flex items-center gap-7">
@@ -114,6 +120,16 @@ function Hero() {
         }}
       />
       <FadeIn>
+        <Image
+          src="/logo.png"
+          alt="Khord logo"
+          width={96}
+          height={96}
+          priority
+          className="mb-8 h-24 w-24"
+        />
+      </FadeIn>
+      <FadeIn delay={0.05}>
         <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5">
           <div className="h-1.5 w-1.5 rounded-full bg-[#4ADE80]" />
           <span className="text-[13px] text-fg-muted">
