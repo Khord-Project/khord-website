@@ -35,3 +35,178 @@ body {
   background: color-mix(in srgb, var(--color-primary) 60%, transparent);
   color: #ffffff;
 }
+
+.prose-khord {
+  color: var(--color-fg);
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.prose-khord > * + * {
+  margin-top: 1.25em;
+}
+
+.prose-khord h1,
+.prose-khord h2,
+.prose-khord h3,
+.prose-khord h4 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  color: var(--color-fg);
+  line-height: 1.2;
+  scroll-margin-top: 5rem;
+}
+
+.prose-khord h1 {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  margin-top: 2em;
+}
+.prose-khord h2 {
+  font-size: clamp(1.5rem, 3vw, 1.875rem);
+  margin-top: 2em;
+}
+.prose-khord h3 {
+  font-size: 1.375rem;
+  margin-top: 1.75em;
+}
+.prose-khord h4 {
+  font-size: 1.125rem;
+  margin-top: 1.5em;
+}
+
+.prose-khord h1 > a.heading-anchor,
+.prose-khord h2 > a.heading-anchor,
+.prose-khord h3 > a.heading-anchor,
+.prose-khord h4 > a.heading-anchor {
+  color: inherit;
+  text-decoration: none;
+  position: relative;
+}
+.prose-khord h1 > a.heading-anchor:hover,
+.prose-khord h2 > a.heading-anchor:hover,
+.prose-khord h3 > a.heading-anchor:hover,
+.prose-khord h4 > a.heading-anchor:hover {
+  color: var(--color-primary-glow);
+}
+
+.prose-khord p {
+  color: var(--color-fg);
+}
+
+.prose-khord strong {
+  color: var(--color-fg);
+  font-weight: 600;
+}
+
+.prose-khord em {
+  font-style: italic;
+  color: var(--color-fg-muted);
+}
+
+.prose-khord a:not(.heading-anchor) {
+  color: var(--color-primary-glow);
+  text-decoration: underline;
+  text-decoration-color: color-mix(
+    in srgb,
+    var(--color-primary-glow) 35%,
+    transparent
+  );
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s ease;
+}
+.prose-khord a:not(.heading-anchor):hover {
+  text-decoration-color: var(--color-primary-glow);
+}
+
+.prose-khord ul,
+.prose-khord ol {
+  padding-left: 1.5em;
+  color: var(--color-fg);
+}
+.prose-khord ul {
+  list-style: disc;
+}
+.prose-khord ol {
+  list-style: decimal;
+}
+.prose-khord li {
+  margin-top: 0.5em;
+}
+.prose-khord li::marker {
+  color: var(--color-fg-dim);
+}
+
+.prose-khord blockquote {
+  border-left: 3px solid var(--color-primary);
+  padding: 0.25em 0 0.25em 1.25em;
+  color: var(--color-fg-muted);
+  font-style: italic;
+}
+
+.prose-khord hr {
+  border: 0;
+  border-top: 1px solid var(--color-border-subtle);
+  margin: 2.5em 0;
+}
+
+.prose-khord :not(pre) > code {
+  background: var(--color-bg-subtle);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-accent);
+  padding: 0.125em 0.4em;
+  border-radius: 0.375rem;
+  font-size: 0.875em;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+}
+
+.prose-khord pre {
+  background: var(--color-bg-subtle);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 0.75rem;
+  padding: 1.125rem 1.25rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.prose-khord pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+}
+.prose-khord pre [data-line] {
+  display: block;
+  padding: 0 0.25rem;
+}
+
+.prose-khord img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-border-subtle);
+}
+
+.prose-khord table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+.prose-khord th,
+.prose-khord td {
+  border: 1px solid var(--color-border-subtle);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+.prose-khord th {
+  background: var(--color-bg-subtle);
+  color: var(--color-fg);
+  font-weight: 600;
+}
+.prose-khord td {
+  color: var(--color-fg-muted);
+}

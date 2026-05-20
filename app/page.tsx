@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef, type CSSProperties } from "react";
 import Image from "next/image";
+import { Nav } from "./_components/Nav";
+import { Footer } from "./_components/Footer";
 
 type Status = "online" | "offline" | "error" | "checking";
 
@@ -51,63 +53,6 @@ function FadeIn({
   );
 }
 
-function Nav() {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
-  }, []);
-
-  const links: [string, string][] = [
-    ["Architecture", "#architecture"],
-    ["Self-Host", "#selfhost"],
-    ["Status", "#status"],
-    ["Open Source", "#opensource"],
-  ];
-
-  return (
-    <nav
-      className={`fixed inset-x-0 top-0 z-50 flex h-16 items-center justify-between px-6 transition-all duration-300 ${
-        scrolled
-          ? "border-b border-border-subtle bg-[rgba(10,15,15,0.92)] backdrop-blur-lg"
-          : "border-b border-transparent bg-transparent"
-      }`}
-    >
-      <div className="flex items-center gap-2.5">
-        <Image
-          src="/logo.png"
-          alt="Khord logo"
-          width={32}
-          height={32}
-          priority
-          className="h-8 w-8"
-        />
-        <span className="font-serif text-xl tracking-wide text-fg">Khord</span>
-      </div>
-      <div className="flex items-center gap-7">
-        {links.map(([label, href]) => (
-          <a
-            key={href}
-            href={href}
-            className="hidden text-sm font-medium text-fg-muted transition-colors hover:text-fg sm:inline"
-          >
-            {label}
-          </a>
-        ))}
-        <a
-          href="https://github.com/Khord-Project/khord"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="rounded-lg bg-accent px-[18px] py-2 text-sm font-semibold text-bg transition-colors hover:bg-accent-dim"
-        >
-          GitHub
-        </a>
-      </div>
-    </nav>
-  );
-}
-
 function Hero() {
   return (
     <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pb-20 pt-32 text-center">
@@ -126,7 +71,7 @@ function Hero() {
           width={96}
           height={96}
           priority
-          className="mb-8 h-24 w-24"
+          className="mb-8 h-24 w-24 rounded-full"
         />
       </FadeIn>
       <FadeIn delay={0.05}>
@@ -617,36 +562,6 @@ function OpenSource() {
         </div>
       </FadeIn>
     </section>
-  );
-}
-
-function Footer() {
-  const links: [string, string][] = [
-    ["GitHub", "https://github.com/Khord-Project/khord"],
-    [
-      "Protocol",
-      "https://github.com/Khord-Project/khord/blob/main/docs/PROTOCOL.md",
-    ],
-  ];
-  return (
-    <footer className="border-t border-border-subtle px-6 py-12 text-center">
-      <p className="font-serif text-[15px] italic text-fg-dim">
-        Privacy should be structural, not just promised.
-      </p>
-      <div className="mt-5 flex justify-center gap-6">
-        {links.map(([label, href]) => (
-          <a
-            key={label}
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[13px] text-fg-dim transition-colors hover:text-fg-muted"
-          >
-            {label}
-          </a>
-        ))}
-      </div>
-    </footer>
   );
 }
 
