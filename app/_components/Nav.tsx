@@ -12,10 +12,11 @@ export function Nav() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  const links: [string, string][] = [
+  const links: [string, string, boolean?][] = [
     ["Architecture", "/#architecture"],
     ["Self-Host", "/#selfhost"],
     ["Status", "/#status"],
+    ["Roadmap", "https://github.com/orgs/Khord-Project/projects/1", true],
     ["Blog", "/blog"],
   ];
 
@@ -39,15 +40,27 @@ export function Nav() {
         <span className="font-serif text-xl tracking-wide text-fg">Khord</span>
       </Link>
       <div className="flex items-center gap-7">
-        {links.map(([label, href]) => (
-          <Link
-            key={href}
-            href={href}
-            className="hidden text-sm font-medium text-fg-muted transition-colors hover:text-fg sm:inline"
-          >
-            {label}
-          </Link>
-        ))}
+        {links.map(([label, href, external]) =>
+          external ? (
+            <a
+              key={href}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden text-sm font-medium text-fg-muted transition-colors hover:text-fg sm:inline"
+            >
+              {label}
+            </a>
+          ) : (
+            <Link
+              key={href}
+              href={href}
+              className="hidden text-sm font-medium text-fg-muted transition-colors hover:text-fg sm:inline"
+            >
+              {label}
+            </Link>
+          ),
+        )}
         <a
           href="https://github.com/Khord-Project/khord"
           target="_blank"

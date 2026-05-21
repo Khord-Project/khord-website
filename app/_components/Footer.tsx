@@ -13,6 +13,11 @@ export function Footer() {
       href: "https://github.com/Khord-Project/khord/blob/main/docs/PROTOCOL.md",
       external: true,
     },
+    {
+      label: "Roadmap",
+      href: "https://github.com/orgs/Khord-Project/projects/1",
+      external: true,
+    },
   ];
   return (
     <footer className="border-t border-border-subtle px-6 py-12 text-center">

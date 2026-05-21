@@ -526,6 +526,10 @@ function OpenSource() {
       label: "Deployment Guide",
       href: "https://github.com/Khord-Project/khord/tree/main/deploy",
     },
+    {
+      label: "Roadmap",
+      href: "https://github.com/orgs/Khord-Project/projects/1",
+    },
   ];
   return (
     <section
