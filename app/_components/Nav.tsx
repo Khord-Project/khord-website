@@ -12,12 +12,6 @@ const links: NavLink[] = [
   { label: "Status", href: "/#status" },
   { label: "FAQ", href: "/faq" },
   { label: "Threat Model", href: "/threat-model" },
-  { label: "Changelog", href: "/changelog" },
-  {
-    label: "Roadmap",
-    href: "https://github.com/orgs/Khord-Project/projects/1",
-    external: true,
-  },
   { label: "Blog", href: "/blog" },
 ];
 

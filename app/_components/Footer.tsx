@@ -4,6 +4,7 @@ export function Footer() {
   const links: { label: string; href: string; external?: boolean }[] = [
     { label: "Blog", href: "/blog" },
     { label: "FAQ", href: "/faq" },
+    { label: "Changelog", href: "/changelog" },
     { label: "Commitment", href: "/commitment" },
     {
       label: "GitHub",
@@ -26,7 +27,7 @@ export function Footer() {
       <p className="font-serif text-[15px] italic text-fg-dim">
         Privacy should be structural, not just promised.
       </p>
-      <div className="mt-5 flex justify-center gap-6">
+      <div className="mt-5 flex flex-wrap justify-center gap-x-6 gap-y-3">
         {links.map(({ label, href, external }) =>
           external ? (
             <a
