@@ -11,6 +11,7 @@ const links: NavLink[] = [
   { label: "Self-Host", href: "/self-host" },
   { label: "Status", href: "/#status" },
   { label: "FAQ", href: "/faq" },
+  { label: "Threat Model", href: "/threat-model" },
   { label: "Changelog", href: "/changelog" },
   {
     label: "Roadmap",
