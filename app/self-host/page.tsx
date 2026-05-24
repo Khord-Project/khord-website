@@ -4,9 +4,10 @@ import { Nav } from "../_components/Nav";
 import { Footer } from "../_components/Footer";
 
 export const metadata: Metadata = {
-  title: "Self-Hosting Guide — Khord",
+  title: "Self-Hosting Guide",
   description:
     "Run your own Khord servers with Docker. A step-by-step guide to self-hosting the Key Server and Relay Server.",
+  alternates: { canonical: "/self-host" },
   openGraph: {
     title: "Self-Hosting Guide — Khord",
     description:

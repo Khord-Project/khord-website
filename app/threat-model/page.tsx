@@ -5,9 +5,10 @@ import { Nav } from "../_components/Nav";
 import { Footer } from "../_components/Footer";
 
 export const metadata: Metadata = {
-  title: "Threat Model — Khord",
+  title: "Threat Model",
   description:
     "What Khord protects, what it doesn't, and why we tell you both. Published threat model, data-flow diagram, and honest limits.",
+  alternates: { canonical: "/threat-model" },
   openGraph: {
     title: "Threat Model — Khord",
     description:

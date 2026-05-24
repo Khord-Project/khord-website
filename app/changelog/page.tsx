@@ -8,8 +8,9 @@ import {
 } from "@/lib/releases";
 
 export const metadata: Metadata = {
-  title: "Changelog — Khord",
+  title: "Changelog",
   description: "Release history for the Khord app and servers.",
+  alternates: { canonical: "/changelog" },
   openGraph: {
     title: "Changelog — Khord",
     description: "Release history for the Khord app and servers.",

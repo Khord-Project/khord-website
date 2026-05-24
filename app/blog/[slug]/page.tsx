@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Nav } from "../../_components/Nav";
 import { Footer } from "../../_components/Footer";
+import { JsonLd } from "../../_components/JsonLd";
 import { getAllPosts, getPostBySlug, formatPostDate } from "@/lib/blog";
 
 type RouteParams = { slug: string };
@@ -22,14 +23,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
-  if (!post) return { title: "Article not found — Khord" };
-  const title = `${post.title} — Khord`;
+  if (!post) return { title: "Article not found" };
   const description = post.excerpt ?? undefined;
   return {
-    title,
+    title: post.title,
     description,
+    alternates: { canonical: `/blog/${post.slug}` },
     openGraph: {
-      title,
+      title: post.title,
       description,
       url: `https://khord.org/blog/${post.slug}`,
       type: "article",
@@ -38,7 +39,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: post.title,
       description,
     },
   };
@@ -55,8 +56,30 @@ export default async function BlogPostPage({
 
   const dateLabel = formatPostDate(post.date);
 
+  const blogPostingJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt ?? undefined,
+    datePublished: post.date ?? undefined,
+    author: post.author
+      ? { "@type": "Person", name: post.author }
+      : { "@type": "Organization", name: "Khord Project" },
+    publisher: {
+      "@type": "Organization",
+      name: "Khord Project",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://khord.org/logo.png",
+      },
+    },
+    url: `https://khord.org/blog/${post.slug}`,
+    mainEntityOfPage: `https://khord.org/blog/${post.slug}`,
+  };
+
   return (
     <div className="min-h-screen bg-bg text-fg">
+      <JsonLd data={blogPostingJsonLd} />
       <Nav />
 
       <article className="mx-auto max-w-[720px] px-6 pb-24 pt-32">

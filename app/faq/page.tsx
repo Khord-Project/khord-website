@@ -2,15 +2,18 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Nav } from "../_components/Nav";
 import { Footer } from "../_components/Footer";
+import { JsonLd } from "../_components/JsonLd";
+
+const description =
+  "Answers about Khord's split-trust architecture, security, identity, self-hosting, and platform support.";
 
 export const metadata: Metadata = {
-  title: "FAQ — Khord",
-  description:
-    "Answers about Khord's split-trust architecture, security, identity, self-hosting, and platform support.",
+  title: "FAQ",
+  description,
+  alternates: { canonical: "/faq" },
   openGraph: {
     title: "FAQ — Khord",
-    description:
-      "Answers about Khord's split-trust architecture, security, identity, self-hosting, and platform support.",
+    description,
     url: "https://khord.org/faq",
   },
 };
@@ -21,7 +24,9 @@ const code =
 const link =
   "text-primary-glow underline decoration-primary-glow/35 underline-offset-2 transition-colors hover:decoration-primary-glow";
 
-type QA = { q: string; a: ReactNode };
+// `a` is rendered; `text` is the plain-text fallback used for FAQPage JSON-LD
+// when `a` is not a plain string (e.g. contains links).
+type QA = { q: string; a: ReactNode; text?: string };
 type Category = { name: string; items: QA[] };
 
 const categories: Category[] = [
@@ -104,6 +109,7 @@ const categories: Category[] = [
             for details.
           </>
         ),
+        text: "Yes. Both servers are Docker containers. A basic deployment takes one `docker compose up` command. See the deployment guide for details.",
       },
       {
         q: "Do I need to run both servers?",
@@ -143,10 +149,26 @@ const categories: Category[] = [
             .
           </>
         ),
+        text: "Not yet. F-Droid submission is in progress. In the meantime, download the APK directly from GitHub Releases.",
       },
     ],
   },
 ];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: categories.flatMap((category) =>
+    category.items.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: typeof item.a === "string" ? item.a : (item.text ?? ""),
+      },
+    })),
+  ),
+};
 
 function FaqItem({ q, a }: QA) {
   return (
@@ -176,6 +198,7 @@ function FaqItem({ q, a }: QA) {
 export default function FaqPage() {
   return (
     <div className="min-h-screen bg-bg text-fg">
+      <JsonLd data={faqJsonLd} />
       <Nav />
 
       <header className="px-6 pb-12 pt-32 text-center">

@@ -4,9 +4,10 @@ import { Nav } from "../_components/Nav";
 import { Footer } from "../_components/Footer";
 
 export const metadata: Metadata = {
-  title: "Data Processing Commitment — Khord",
+  title: "Data Processing Commitment",
   description:
     "What the community servers at keys.khord.org and relay.khord.org store, and what they don't.",
+  alternates: { canonical: "/commitment" },
   openGraph: {
     title: "Data Processing Commitment — Khord",
     description:

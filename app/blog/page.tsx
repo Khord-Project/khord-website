@@ -5,9 +5,10 @@ import { Footer } from "../_components/Footer";
 import { getAllPosts, formatPostDate } from "@/lib/blog";
 
 export const metadata: Metadata = {
-  title: "Blog — Khord",
+  title: "Blog",
   description:
     "Writing about the Khord protocol, privacy by architecture, and how it gets built.",
+  alternates: { canonical: "/blog" },
   openGraph: {
     title: "Blog — Khord",
     description:

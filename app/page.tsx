@@ -1,57 +1,49 @@
-"use client";
-
-import { useState, useEffect, useRef, type CSSProperties } from "react";
+import type { CSSProperties } from "react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import { Nav } from "./_components/Nav";
 import { Footer } from "./_components/Footer";
+import { FadeIn } from "./_components/FadeIn";
+import { ServerStatus } from "./_components/ServerStatus";
+import { JsonLd } from "./_components/JsonLd";
 
-type Status = "online" | "offline" | "error" | "checking";
+const description =
+  "Khord is an open-source, end-to-end encrypted messenger with a split-trust architecture: two independent servers each hold half the picture, so no single operator can link who you are to who you talk to. Signal Protocol encryption, no phone number, self-hostable.";
 
-function useInView(threshold = 0.15) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          obs.unobserve(el);
-        }
-      },
-      { threshold },
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return [ref, visible] as const;
-}
+export const metadata: Metadata = {
+  description,
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "Khord — Privacy by Architecture",
+    description,
+    url: "https://khord.org",
+    siteName: "Khord",
+    type: "website",
+  },
+};
 
-function FadeIn({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  const [ref, visible] = useInView();
-  return (
-    <div
-      ref={ref}
-      className={className}
-      style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(24px)",
-        transition: `opacity 0.7s ease ${delay}s, transform 0.7s ease ${delay}s`,
-      }}
-    >
-      {children}
-    </div>
-  );
-}
+const softwareJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Khord",
+  applicationCategory: "CommunicationApplication",
+  operatingSystem: "Android",
+  description,
+  url: "https://khord.org",
+  downloadUrl: "https://github.com/Khord-Project/khord/releases/latest",
+  license: "https://www.gnu.org/licenses/agpl-3.0.html",
+  isAccessibleForFree: true,
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
+  author: {
+    "@type": "Organization",
+    name: "Khord Project",
+    url: "https://github.com/Khord-Project",
+  },
+};
 
 function Hero() {
   return (
@@ -175,10 +167,7 @@ function ServerCard({
 
 function Architecture() {
   return (
-    <section
-      id="architecture"
-      className="mx-auto max-w-[960px] px-6 py-[100px]"
-    >
+    <section id="architecture" className="mx-auto max-w-[960px] px-6 py-[100px]">
       <FadeIn>
         <p className="mb-3 text-[13px] font-semibold uppercase tracking-[0.1em] text-primary-glow">
           Split-Trust Architecture
@@ -327,8 +316,8 @@ function Download() {
         </FadeIn>
         <FadeIn delay={0.2}>
           <p className="mx-auto mt-6 max-w-[480px] text-sm leading-[1.6] text-fg-muted">
-            Android 8.0+ required. Sideload instructions: download the APK,
-            open it, and allow installation from unknown sources when prompted.
+            Android 8.0+ required. Sideload instructions: download the APK, open
+            it, and allow installation from unknown sources when prompted.
           </p>
         </FadeIn>
         <FadeIn delay={0.25}>
@@ -408,110 +397,6 @@ function SelfHost() {
   );
 }
 
-function ServerStatus() {
-  const [keyStatus, setKeyStatus] = useState<Status>("checking");
-  const [relayStatus, setRelayStatus] = useState<Status>("checking");
-  const [lastChecked, setLastChecked] = useState<Date | null>(null);
-
-  useEffect(() => {
-    const check = async (url: string, setter: (s: Status) => void) => {
-      try {
-        const res = await fetch(url, { mode: "cors" });
-        const data = await res.json();
-        setter(data.status === "ok" ? "online" : "error");
-      } catch {
-        setter("offline");
-      }
-    };
-    const runChecks = () => {
-      check("https://keys.khord.org/v1/health", setKeyStatus);
-      check("https://relay.khord.org/v1/health", setRelayStatus);
-      setLastChecked(new Date());
-    };
-    runChecks();
-    const interval = setInterval(runChecks, 60000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const statusColor = (status: Status) =>
-    status === "online"
-      ? "#4ADE80"
-      : status === "checking"
-        ? "#5E7676"
-        : "#EF4444";
-
-  const statusLabel = (status: Status) =>
-    status === "online"
-      ? "Operational"
-      : status === "checking"
-        ? "Checking..."
-        : "Unreachable";
-
-  const rows: [string, string, Status][] = [
-    ["Key Server", "keys.khord.org", keyStatus],
-    ["Relay Server", "relay.khord.org", relayStatus],
-  ];
-
-  return (
-    <section
-      id="status"
-      className="mx-auto max-w-[480px] px-6 pb-20 pt-10"
-    >
-      <FadeIn>
-        <div className="rounded-2xl border border-border-subtle bg-surface px-7 py-6">
-          <div className="mb-[18px] flex items-center justify-between">
-            <p className="text-xs font-semibold uppercase tracking-[0.08em] text-fg-dim">
-              Community Server Status
-            </p>
-            {lastChecked && (
-              <span className="text-[11px] text-fg-dim">
-                Updated{" "}
-                {lastChecked.toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
-              </span>
-            )}
-          </div>
-          {rows.map(([name, host, status], i) => (
-            <div
-              key={name}
-              className={`flex items-center justify-between py-2.5 ${
-                i > 0 ? "border-t border-border-subtle" : ""
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <div
-                  className="h-2 w-2 rounded-full transition-all duration-300"
-                  style={{
-                    background: statusColor(status),
-                    boxShadow:
-                      status === "online"
-                        ? "0 0 8px rgba(74,222,128,0.4)"
-                        : "none",
-                  }}
-                />
-                <div>
-                  <span className="block text-sm font-medium text-fg">
-                    {name}
-                  </span>
-                  <span className="text-xs text-fg-dim">{host}</span>
-                </div>
-              </div>
-              <span
-                className="text-[13px] font-medium"
-                style={{ color: statusColor(status) }}
-              >
-                {statusLabel(status)}
-              </span>
-            </div>
-          ))}
-        </div>
-      </FadeIn>
-    </section>
-  );
-}
-
 function OpenSource() {
   const links = [
     {
@@ -545,9 +430,9 @@ function OpenSource() {
         </h2>
         <p className="mb-9 text-base leading-[1.7] text-fg-muted">
           Server code is AGPL-3.0 — modified versions must publish their
-          changes. The protocol specification is CC-BY-SA-4.0 — anyone can
-          build a compatible client. The architecture enforces privacy. The
-          source code proves it.
+          changes. The protocol specification is CC-BY-SA-4.0 — anyone can build
+          a compatible client. The architecture enforces privacy. The source
+          code proves it.
         </p>
       </FadeIn>
       <FadeIn delay={0.1}>
@@ -572,6 +457,7 @@ function OpenSource() {
 export default function KhordLanding() {
   return (
     <div className="min-h-screen bg-bg text-fg">
+      <JsonLd data={softwareJsonLd} />
       <Nav />
       <Hero />
       <Architecture />
