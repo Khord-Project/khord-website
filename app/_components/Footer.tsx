@@ -3,6 +3,8 @@ import Link from "next/link";
 export function Footer() {
   const links: { label: string; href: string; external?: boolean }[] = [
     { label: "Blog", href: "/blog" },
+    { label: "FAQ", href: "/faq" },
+    { label: "Commitment", href: "/commitment" },
     {
       label: "GitHub",
       href: "https://github.com/Khord-Project/khord",

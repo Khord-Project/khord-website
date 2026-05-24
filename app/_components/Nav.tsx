@@ -16,6 +16,7 @@ export function Nav() {
     ["Architecture", "/#architecture"],
     ["Self-Host", "/#selfhost"],
     ["Status", "/#status"],
+    ["FAQ", "/faq"],
     ["Roadmap", "https://github.com/orgs/Khord-Project/projects/1", true],
     ["Blog", "/blog"],
   ];
