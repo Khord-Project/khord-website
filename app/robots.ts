@@ -7,7 +7,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: "/api/",
+      // /s/ holds one-time links — a crawler must never fetch one.
+      disallow: ["/api/", "/s/"],
     },
     sitemap: `${BASE_URL}/sitemap.xml`,
     host: BASE_URL,

@@ -24,6 +24,9 @@
 .DS_Store
 *.pem
 
+# ephemeral one-time secret store (must persist via a Coolify volume, not git)
+/data
+
 # debug
 npm-debug.log*
 yarn-debug.log*
